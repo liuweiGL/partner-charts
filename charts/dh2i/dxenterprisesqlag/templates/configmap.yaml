@@ -1,9 +1,0 @@
-{{ if .Values.mssqlConfigMap }}
-kind: ConfigMap 
-apiVersion: v1 
-immutable: true
-metadata:
-  name: "mssqlconf-{{ .Release.Name }}"
-data:
-  mssql.conf: {{- .Values.mssqlConfigMap | toYaml | indent 2 -}}
-{{ end }}  
