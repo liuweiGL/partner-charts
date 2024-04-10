@@ -1,4 +1,0 @@
-ArtifactHubRepo: amd-gpu-helm
-ArtifactHubPackage: amd-gpu
-Vendor: AMD
-DisplayName: AMD GPU Device Plugin
