@@ -1,4 +1,0 @@
-HelmRepo: https://helm.linkerd.io/edge
-HelmChart: linkerd-crds
-Vendor: Linkerd
-DisplayName: Linkerd CRDs
