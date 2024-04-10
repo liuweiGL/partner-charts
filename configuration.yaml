@@ -4,6 +4,6 @@ validate:
 - url: https://github.com/liuweiGL/partner-charts.git
   branch: main
 helmRepo:
-  cname: partner-charts.eastcoal.club
+  cname: partner-charts.rancher.eastcoal.club
 
 omitBuildMetadataOnExport: true
