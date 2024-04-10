@@ -3,42 +3,28 @@ name: Auto-update charts
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Configure git
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Get rancher/partner-charts secrets out of vault
-      uses: rancher-eio/read-vault-secrets@main
-      with:
-        secrets: |
-          github/repo/rancher/partner-charts/github/app-credentials appId | APP_ID ;
-          github/repo/rancher/partner-charts/github/app-credentials privateKey | PRIVATE_KEY
+      - name: Update main-source branch
+        env:
+          APP_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          scripts/pull-ci-scripts
+          bin/partner-charts-ci auto
 
-    - name: Generate short-lived github app token
-      uses: actions/create-github-app-token@v1
-      id: app-token
-      with:
-        app-id: ${{ env.APP_ID }}
-        private-key: ${{ env.PRIVATE_KEY }}
+          # exit if there are no changes
+          git diff --quiet origin/main-source main-source && exit 0
 
-    - name: Update main-source branch
-      env:
-        APP_TOKEN: ${{ steps.app-token.outputs.token }}
-      run: |
-        scripts/pull-ci-scripts
-        bin/partner-charts-ci auto
-
-        # exit if there are no changes
-        git diff --quiet origin/main-source main-source && exit 0
-
-        git remote set-url origin https://x-access-token:${APP_TOKEN}@github.com/rancher/partner-charts
-        git push origin main-source
+          git remote set-url origin https://x-access-token:${APP_TOKEN}@github.com/rancher/partner-charts
+          git push origin main-source

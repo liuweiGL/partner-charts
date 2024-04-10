@@ -1,0 +1,5 @@
+GitRepo: https://github.com/nacos-group/nacos-k8s.git
+GitHubRelease: true
+GitSubdirectory: helm
+Vendor: Alibaba
+DisplayName: Nacos
