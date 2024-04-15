@@ -7,6 +7,22 @@ entries:
       catalog.cattle.io/release-name: nacos
     apiVersion: v1
     appVersion: "1.0"
+    created: "2024-04-15T10:33:14.976219333Z"
+    description: A Helm chart for Kubernetes
+    digest: 607a60449a6a77ee87458cecef312b1b7edcf627e70980f2c6a5690ec6430d47
+    icon: https://gitee.com/liuwei89757/partner-charts/raw/main-source/charts/alibaba/nacos/assets/logo.png
+    maintainers:
+    - name: liuweigl
+    name: nacos
+    urls:
+    - assets/alibaba/nacos-1.0.5.tgz
+    version: 1.0.5
+  - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: Nacos
+      catalog.cattle.io/release-name: nacos
+    apiVersion: v1
+    appVersion: "1.0"
     created: "2024-04-15T10:22:17.70257733Z"
     description: A Helm chart for Kubernetes
     digest: fd77674a3aac3d0f2490ac7e57b421d143a627c22f75c6864aa94a6337c91444

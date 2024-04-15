@@ -17,6 +17,24 @@ spec:
       {{- if eq .Values.service.type "NodePort" }}
       nodePort: {{ .Values.service.nodePort }}
       {{- end }}
+  selector:
+    app.kubernetes.io/name: {{ include "nacos.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nacos-internal
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+  {{- toYaml .Values.service.labels | nindent 4 }}
+  annotations:
+  {{- toYaml .Values.service.annotations | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
     - name: client-rpc
       port: {{ add .Values.service.port 1000}}
       targetPort: {{add .Values.nacos.serverPort 1000}}
