@@ -88,10 +88,21 @@ spec:
               value: {{ .Values.nacos.serverPort | quote }}
             - name: PREFER_HOST_MODE
               value: {{ .Values.nacos.preferhostmode | quote }}
+            - name: NACOS_AUTH_ENABLE
+              value: {{ .Values.global.auth.enable }}
+            - name: NACOS_AUTH_SYSTEM_TYPE
+              value: {{ .Values.global.auth.type | default "nacos" | quote }}
+            - name: NACOS_AUTH_TOKEN_EXPIRE_SECONDS
+              value: {{ .Values.global.auth.tokenExpireSeconds }}
+            - name: NACOS_AUTH_IDENTITY_KEY
+              value: {{ .Values.global.auth.identityKey | quote }}
+            - name: NACOS_AUTH_IDENTITY_VALUE
+              value: {{ .Values.global.auth.identityValue | quote }}
+            - name: NACOS_AUTH_TOKEN
+              value: {{ .Values.global.auth.token | quote }}
             {{- if eq .Values.global.mode "standalone" }}
             - name: MODE
               value: "standalone"
-
             {{- else if eq .Values.global.mode "cluster" }}
             - name: SERVICE_NAME
               value: "nacos-hs"

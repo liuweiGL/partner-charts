@@ -1,0 +1,15 @@
+name: Release Workflow
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  trigger_repo_b:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Partner Charts Workflow
+        run: |
+          bash trigger_b_repo.sh
+        env:
+            APP_TOKEN: ${{ secrets.TOKEN }}

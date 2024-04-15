@@ -5,6 +5,13 @@
 global:
   mode: standalone
 #  mode: cluster
+  auth: 
+    enable: true
+    type: nacos
+    tokenExpireSeconds: 1800
+    identityKey: WhoAreYou
+    identityValue: 3.14159265358979323846
+    token: U3pGeFJ6aExvUFl5djFnakkxQjBEMFBQQ1V5czFYcEFTYWIwRklnZE9GalJEQzhQcmxKRlBJRkp0enNIVEQ=
 
 ############################nacos###########################
 nacos:
