@@ -1,5 +1,4 @@
-GitRepo: https://github.com/nacos-group/nacos-k8s.git
+GitRepo: https://github.com/liuweiGL/nacos-chart.git
 GitHubRelease: true
-GitSubdirectory: helm
 Vendor: Alibaba
 DisplayName: Nacos

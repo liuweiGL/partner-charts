@@ -2,6 +2,9 @@ name: Auto-update charts
 
 on:
   workflow_dispatch: {}
+  push:
+    branches:
+      - main-source
   # schedule:
   #   - cron: "0 0 * * *"
 
