@@ -1,15 +1,19 @@
 name: Release Workflow
 
 on:
+  workflow_dispatch: {}
   release:
     types: [published]
 
 jobs:
-  trigger_repo_b:
+  trigger_partner_charts_workflow:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Trigger Partner Charts Workflow
         run: |
-          bash trigger_b_repo.sh
+          chmod +x -R scripts
+          scripts/trigger_partner_charts_actions.sh
         env:
-            APP_TOKEN: ${{ secrets.TOKEN }}
+          APP_TOKEN: ${{ secrets.TOKEN }}

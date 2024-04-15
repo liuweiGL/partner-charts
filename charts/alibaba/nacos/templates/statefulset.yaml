@@ -89,11 +89,11 @@ spec:
             - name: PREFER_HOST_MODE
               value: {{ .Values.nacos.preferhostmode | quote }}
             - name: NACOS_AUTH_ENABLE
-              value: {{ .Values.global.auth.enable }}
+              value: {{ .Values.global.auth.enable  | quote }}
             - name: NACOS_AUTH_SYSTEM_TYPE
               value: {{ .Values.global.auth.type | default "nacos" | quote }}
             - name: NACOS_AUTH_TOKEN_EXPIRE_SECONDS
-              value: {{ .Values.global.auth.tokenExpireSeconds }}
+              value: {{ .Values.global.auth.tokenExpireSeconds  | quote }}
             - name: NACOS_AUTH_IDENTITY_KEY
               value: {{ .Values.global.auth.identityKey | quote }}
             - name: NACOS_AUTH_IDENTITY_VALUE
