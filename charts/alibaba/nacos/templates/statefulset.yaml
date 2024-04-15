@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ include "nacos.fullname" . }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace | quote }}
   annotations:
   {{- toYaml .Values.annotations | indent 4 }}
 spec:
@@ -43,7 +43,7 @@ spec:
       initContainers:
         - name: peer-finder-plugin-install
           image: {{.Values.nacos.plugin.image.repository}}:{{.Values.nacos.plugin.image.tag}}
-          imagePullPolicy: Always
+          imagePullPolicy: {{ .Values.nacos.plugin.image.pullPolicy }}
           volumeMounts:
             - mountPath: /home/nacos/plugins/peer-finder
               name: data
@@ -103,7 +103,6 @@ spec:
                   apiVersion: v1
                   fieldPath: metadata.namespace
             {{- end }}
-            {{- if eq .Values.nacos.storage.type "mysql" }}
             - name: SPRING_DATASOURCE_PLATFORM
               value: "mysql"
             - name: MYSQL_SERVICE_HOST
@@ -136,10 +135,6 @@ spec:
                 configMapKeyRef:
                   name: nacos-cm
                   key: mysql.param
-            {{else}}
-            - name: EMBEDDED_STORAGE
-              value: embedded
-          {{end}}
           volumeMounts:
             - name: data
               mountPath: /home/nacos/plugins/peer-finder
@@ -150,16 +145,8 @@ spec:
             - name: data
               mountPath: /home/nacos/logs
               subPath: logs
-      {{- if not .Values.persistence.enabled  }}
       volumes:
         - name: data
           emptyDir: { }
-  {{- end }}
-  {{- if .Values.persistence.enabled }}
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-  {{- toYaml .Values.persistence.data | nindent 8 }}
   {{- end }}
 

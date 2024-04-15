@@ -56,7 +56,7 @@ curl -X GET "http://$NODE_IP:$NODE_PORT/nacos/v1/cs/configs?dataId=nacos.cfg.dat
 To uninstall/delete `release name`:
 
 ```shell
-$ helm uninstall `release name`
+helm uninstall `release name`
 ```
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
@@ -83,7 +83,7 @@ The following table lists the configurable parameters of the Skywalking chart an
 | `nacos.health.enabled`                      | Enable health check or not                                         | `false`                              |
 | `nacos.env.preferhostmode`                  | Enable Nacos cluster node domain name support                      | `hostname`                         |
 | `nacos.env.serverPort`                      | Nacos port                                                         | `8848`                               |
-| `nacos.storage.type`                      | Nacos data storage method `mysql` or `embedded`. The `embedded` supports either standalone or cluster mode                                                       | `embedded`                               |
+| `nacos.storage.type`                      | Nacos data storage method `mysql` | `mysql`                               |
 | `nacos.storage.db.host`                      | mysql  host                                                       |                                |
 | `nacos.storage.db.name`                      | mysql  database name                                                      |                                |
 | `nacos.storage.db.port`                      | mysql port                                                       | 3306                               |
@@ -102,13 +102,6 @@ The following table lists the configurable parameters of the Skywalking chart an
 | `ingress.hosts`									| The host of nacos service in ingress rule							| `nacos.example.com`	|
 
 
-## Example
-![img](../images/nacos.png)
-#### standalone mode(with embedded)
-```console
-$ helm install `release name` ./ --set global.mode=standalone
-```
-![img](../images/quickstart.png)
 
 #### standalone mode(with mysql)
 ```console
@@ -116,22 +109,11 @@ $ helm install `release name` ./ --set global.mode=standalone --set nacos.storag
 db.name=dbName --set nacos.storage.db.port=port --set nacos.storage.db.username=username  --set nacos.storage.db.
 password=password
 ```
-![img](../images/standalone.png)
 
 
 > **Tip**: if the logs of nacos pod throws exception, you may need to delete the pod. Because mysql pod is not ready, nacos pod has been started.
 
-#### cluster mode(without pv)
+#### cluster mode
 ```console
 $ helm install `release name` ./ --set global.mode=cluster
 ```
-![img](../images/cluster1.png)
-
-```console
-$ kubectl scale sts `release name`-nacos --replicas=3
-```
-![img](../images/cluster2.png)
-
- * Use kubectl exec to get the cluster config of the Pods in the nacos StatefulSet after scale StatefulSets
- 
-![img](../images/cluster3.png)

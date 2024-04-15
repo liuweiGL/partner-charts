@@ -4,7 +4,7 @@ apiVersion: {{ .Values.ingress.apiVersion }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
 {{ include "nacos.labels" . | indent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -22,6 +22,9 @@ spec:
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
+  {{- if .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- end }}
   {{- if eq .Values.ingress.apiVersion "networking.k8s.io/v1" }}
   rules:
   {{- range .Values.ingress.hosts }}

@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nacos-cm
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace | quote }}
 data:
   {{- with .Values.nacos.storage.db }}
   mysql.db.host: {{.host}}
@@ -12,7 +12,6 @@ data:
   mysql.user: {{ .username }}
   mysql.password: {{ .password }}
   mysql.param: {{ .param | default "characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false" }}
-  {{- end }}
   {{- end }}
 
 
