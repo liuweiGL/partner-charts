@@ -3,5 +3,6 @@ GitSubdirectory: rocketmq-k8s-helm
 GitHubRelease: false
 GitBranch: master
 Vendor: Apache
+DisplayName: RocketMQ
 ChartMetadata:
   icon: https://gitee.com/liuwei89757/partner-charts/raw/main-source/packages/apache/rocketmq/logo.png
