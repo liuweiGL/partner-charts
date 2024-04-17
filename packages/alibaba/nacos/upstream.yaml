@@ -1,4 +1,5 @@
 GitRepo: https://github.com/liuweiGL/nacos-chart.git
-GitHubRelease: true
+GitHubRelease: false
+GitBranch: main
 Vendor: Alibaba
 DisplayName: Nacos

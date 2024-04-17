@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: proxy-conf
-data:
-  {{ include "rocketmq-proxy.conf" . }}
