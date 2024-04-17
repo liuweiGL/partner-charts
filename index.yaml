@@ -115,6 +115,21 @@ entries:
   rocketmq:
   - annotations:
       catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: RocketMQ
+      catalog.cattle.io/release-name: rocketmq
+    apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-04-17T03:57:26.251542662Z"
+    description: A Helm chart for Kubernetes
+    digest: 68716cd56e705fbe3da8970b1e2c737cd7eabdda1850befddff87aaa38b153a0
+    icon: https://gitee.com/liuwei89757/partner-charts/raw/main-source/packages/apache/rocketmq/logo.png
+    name: rocketmq
+    type: application
+    urls:
+    - assets/apache/rocketmq-0.1.0.tgz
+    version: 0.1.0
+  - annotations:
+      catalog.cattle.io/certified: partner
       catalog.cattle.io/display-name: rocketmq
       catalog.cattle.io/release-name: rocketmq
     apiVersion: v2
