@@ -1,0 +1,6 @@
+GitRepo: https://github.com/apache/rocketmq-docker.git
+GitSubdirectory: rocketmq-k8s-helm
+GitHubRelease: true
+Vendor: Apache
+ChartMetadata:
+  icon: https://gitee.com/liuwei89757/partner-charts/raw/main-source/packages/apache/rocketmq/logo.png
