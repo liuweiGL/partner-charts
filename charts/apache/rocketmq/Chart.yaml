@@ -1,6 +1,6 @@
 annotations:
   catalog.cattle.io/certified: partner
-  catalog.cattle.io/display-name: RocketMQ
+  catalog.cattle.io/display-name: rocketmq
   catalog.cattle.io/release-name: rocketmq
 apiVersion: v2
 appVersion: 1.16.0
@@ -8,4 +8,4 @@ description: A Helm chart for Kubernetes
 icon: https://gitee.com/liuwei89757/partner-charts/raw/main-source/packages/apache/rocketmq/logo.png
 name: rocketmq
 type: application
-version: 0.1.0
+version: 0.0.1

@@ -2,7 +2,6 @@
 SPDX-License-Identifier: APACHE-2.0
 */}}
 
-{{- if eq .Values.controller.enable true }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata: 
@@ -105,6 +104,6 @@ spec:
         storageClassName: {{ .Values.controller.persistence.storageClass }}
         {{- end -}}        
   {{- end }}
-{{- end }}
+
 
 
