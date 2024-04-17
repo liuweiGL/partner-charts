@@ -112,4 +112,20 @@ entries:
     urls:
     - assets/alibaba/nacos-0.1.5.tgz
     version: 0.1.5
+  rocketmq:
+  - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: rocketmq
+      catalog.cattle.io/release-name: rocketmq
+    apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-04-17T02:35:33.903447407Z"
+    description: A Helm chart for Kubernetes
+    digest: 716cdd67c7e40d009a2bd04105568a0cbbb38aca671068273c849f87ef1b11e3
+    icon: https://gitee.com/liuwei89757/partner-charts/raw/main-source/packages/apache/rocketmq/logo.png
+    name: rocketmq
+    type: application
+    urls:
+    - assets/apache/rocketmq-0.0.1.tgz
+    version: 0.0.1
 generated: "0001-01-01T00:00:00Z"
