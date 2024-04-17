@@ -1,4 +1,4 @@
-GitRepo: https://github.com/apache/rocketmq-docker.git
+GitRepo: https://github.com/liuweiGL/rocketmq-docker.git
 GitSubdirectory: rocketmq-k8s-helm
 GitHubRelease: false
 GitBranch: master
