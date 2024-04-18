@@ -1,0 +1,73 @@
+{{- /*
+Copyright VMware, Inc.
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{- if .Values.nameserver.ingress.enabled }}
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ include "rocketmq.nameserver.fullname" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+  {{- if or .Values.nameserver.ingress.annotations .Values.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.nameserver.ingress.annotations .Values.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if and .Values.nameserver.ingress.ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" .)) }}
+  ingressClassName: {{ .Values.nameserver.ingress.ingressClassName | quote }}
+  {{- end }}
+  rules:
+    {{- if .Values.nameserver.ingress.hostname }}
+    - host: {{ .Values.nameserver.ingress.hostname | quote }}
+      http:
+        paths:
+          {{- if .Values.nameserver.ingress.extraPaths }}
+          {{- toYaml .Values.nameserver.ingress.extraPaths | nindent 10 }}
+          {{- end }}
+          - path: {{ .Values.nameserver.ingress.path }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" .) }}
+            pathType: {{ .Values.nameserver.ingress.pathType }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "rocketmq.nameserver.fullname" .) "servicePort" (ternary "http" "https" (not $.Values.nameserver.containerPorts.nameserver)) "context" $)  | nindent 14 }}
+    {{- else if .Values.nameserver.ingress.path }}
+    - http:
+        paths:
+          {{- if .Values.nameserver.ingress.extraPaths }}
+          {{- toYaml .Values.nameserver.ingress.extraPaths | nindent 10 }}
+          {{- end }}
+          - path: {{ .Values.nameserver.ingress.path }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" .) }}
+            pathType: {{ .Values.nameserver.ingress.pathType }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "rocketmq.nameserver.fullname" .) "servicePort" (ternary "http" "https" (not .Values.nameserver.containerPorts.nameserver)) "context" $)  | nindent 14 }}
+    {{- end }}
+    {{- range .Values.nameserver.ingress.extraHosts }}
+    - host: {{ .name | quote }}
+      http:
+        paths:
+          - path: {{ default "/" .path }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "rocketmq.nameserver.fullname" $) "servicePort" (ternary "http" "https" (not $.Values.nameserver.containerPorts.nameserver)) "context" $) | nindent 14 }}
+    {{- end }}
+    {{- if .Values.nameserver.ingress.extraRules }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.nameserver.ingress.extraRules "context" $) | nindent 4 }}
+    {{- end }}
+  {{- if or (and .Values.nameserver.ingress.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.nameserver.ingress.annotations )) .Values.nameserver.ingress.selfSigned (not (empty .Values.nameserver.ingress.secrets)))) .Values.nameserver.ingress.extraTls }}
+  tls:
+    {{- if and .Values.nameserver.ingress.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.nameserver.ingress.annotations )) .Values.nameserver.ingress.selfSigned (not (empty .Values.nameserver.ingress.secrets))) }}
+    - hosts:
+        - {{ .Values.nameserver.ingress.hostname | quote }}
+        {{- if or (.Values.nameserver.ingress.tlsWwwPrefix) (eq (index .Values.nameserver.ingress.annotations "nginx.ingress.kubernetes.io/from-to-www-redirect") "true" ) }}
+        - {{ printf "www.%s" (tpl .Values.nameserver.ingress.hostname $) | quote }}
+        {{- end }}
+      secretName: {{ printf "%s-tls" .Values.nameserver.ingress.hostname }}
+    {{- end }}
+    {{- if .Values.nameserver.ingress.extraTls }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.nameserver.ingress.extraTls "context" $) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+{{- end }}

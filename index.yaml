@@ -1,2 +1,42 @@
 apiVersion: v1
-entries: {}
+entries:
+  nacos:
+  - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: Nacos
+      catalog.cattle.io/release-name: nacos
+    apiVersion: v1
+    appVersion: 2.3.2
+    created: "2024-04-18T02:59:39.87583776Z"
+    description: A Helm chart for Kubernetes
+    digest: 7c72ac916567890928c0361775558284c6f69db0ce9fafebf18f665321f5f079
+    icon: https://gitee.com/liuwei89757/partner-charts/raw/main-source/charts/alibaba/nacos/assets/logo.png
+    maintainers:
+    - name: liuweigl
+    name: nacos
+    urls:
+    - assets/alibaba/nacos-1.0.5.tgz
+    version: 1.0.5
+  rocketmq:
+  - annotations:
+      catalog.cattle.io/certified: partner
+      catalog.cattle.io/display-name: RocketMQ
+      catalog.cattle.io/release-name: rocketmq
+    apiVersion: v2
+    appVersion: 5.2.0
+    created: "2024-04-18T02:59:39.878049884Z"
+    dependencies:
+    - name: common
+      repository: file://./charts/common
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: A Helm chart for Kubernetes
+    digest: 2c454ee38f8ea982e9c5f2d613b001c650532e3aaab3d24507976882f02329b5
+    icon: https://gitee.com/liuwei89757/partner-charts/raw/main-source/packages/apache/rocketmq/logo.png
+    name: rocketmq
+    type: application
+    urls:
+    - assets/apache/rocketmq-1.0.0.tgz
+    version: 1.0.0
+generated: "0001-01-01T00:00:00Z"
